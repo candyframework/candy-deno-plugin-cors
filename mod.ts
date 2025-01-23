@@ -43,7 +43,7 @@ export type CorsOptions = {
 /**
  * Cors plgin for `@candy/framework`
  */
-export default function cors(options: CorsOptions | null = null) {
+export default function cors(options: CorsOptions | null = null): (request: Request, hook: any) => Promise<Response> {
     const cors: CorsOptions = null === options
         ? {
             allowOrigins: ['*'],
