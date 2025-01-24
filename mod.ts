@@ -68,16 +68,18 @@ export default function cors(options: CorsOptions | null = null): (request: Requ
         const origin = requestHeaders.get('Origin');
 
         if (null !== origin && undefined !== cors.allowOrigins) {
-            if (cors.allowOrigins.includes(origin)) {
-                responseHeaders.set('Access-Control-Allow-Origin', origin);
-            }
-
             if (cors.allowOrigins.includes('*')) {
                 if (true === cors.allowCredentials) {
                     throw new Error('Allow credentials is not allowed when allow origins is *');
                 }
                 responseHeaders.set('Access-Control-Allow-Origin', '*');
+            } else if (cors.allowOrigins.includes(origin)) {
+                responseHeaders.set('Access-Control-Allow-Origin', origin);
             }
+        }
+
+        if (undefined !== cors.allowMethods && cors.allowMethods.length > 0) {
+            responseHeaders.set('Access-Control-Allow-Methods', cors.allowMethods.join(', '));
         }
 
         if (requestHeaders.has('Access-Control-Allow-Credentials')) {
@@ -86,10 +88,6 @@ export default function cors(options: CorsOptions | null = null): (request: Requ
 
         if (undefined !== cors.AccessControlExposeHeaders && cors.AccessControlExposeHeaders.length > 0) {
             responseHeaders.set('Access-Control-Expose-Headers', cors.AccessControlExposeHeaders.join(', '));
-        }
-
-        if (undefined !== cors.allowMethods && cors.allowMethods.length > 0) {
-            responseHeaders.set('Access-Control-Allow-Methods', cors.allowMethods.join(', '));
         }
 
         if (undefined !== cors.AccessControlMaxAge && 'OPTIONS' === method) {
@@ -107,6 +105,7 @@ export default function cors(options: CorsOptions | null = null): (request: Requ
 
         return new Response(null, {
             status: 200,
+            statusText: 'OK',
             headers: responseHeaders,
         });
     };
