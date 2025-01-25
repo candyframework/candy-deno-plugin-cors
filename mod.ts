@@ -9,7 +9,7 @@ export type CorsOptions = {
      * ['https://example.com', 'https://example2.com']
      * ```
      */
-    allowOrigins: string[];
+    origins: string[];
     /**
      * List of allowed methods
      *
@@ -45,7 +45,7 @@ export type CorsOptions = {
  */
 export default function cors(options: Partial<CorsOptions> = {}): (request: Request, hook: any) => Promise<Response> {
     const cors: CorsOptions = Object.assign({
-        allowOrigins: ['*'],
+        origins: ['*'],
         allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
         allowHeaders: [],
         allowCredentials: false,
@@ -77,12 +77,12 @@ export default function cors(options: Partial<CorsOptions> = {}): (request: Requ
         }
 
         if (null !== origin) {
-            if (cors.allowOrigins.includes('*')) {
+            if (cors.origins.includes('*')) {
                 if (true === cors.allowCredentials) {
                     throw new Error('Allow credentials is not allowed when allow origins is *');
                 }
                 responseHeaders.set('Access-Control-Allow-Origin', '*');
-            } else if (cors.allowOrigins.includes(origin)) {
+            } else if (cors.origins.includes(origin)) {
                 responseHeaders.set('Access-Control-Allow-Origin', origin);
             }
         }
