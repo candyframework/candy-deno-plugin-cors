@@ -22,7 +22,7 @@ Hook.use(Cors({
     allowMethods: ['GET', 'POST'],
     allowHeaders: [],
     allowCredentials: false,
-    AccessControlMaxAge: '86400',
-    AccessControlExposeHeaders: [],
+    maxAge: '86400',
+    exposeHeaders: [],
 }));
 ```

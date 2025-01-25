@@ -33,11 +33,11 @@ export type CorsOptions = {
     /**
      * Maximum number of seconds the results can be cached
      */
-    AccessControlMaxAge: string;
+    maxAge: string;
     /**
      * List of headers that should be made available to scripts running in the browser
      */
-    AccessControlExposeHeaders: string[];
+    exposeHeaders: string[];
 };
 
 /**
@@ -49,8 +49,8 @@ export default function cors(options: Partial<CorsOptions> = {}): (request: Requ
         allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
         allowHeaders: [],
         allowCredentials: false,
-        AccessControlMaxAge: '86400',
-        AccessControlExposeHeaders: [],
+        maxAge: '86400',
+        exposeHeaders: [],
     }, options);
 
     return async (request: Request, hook: any): Promise<Response> => {
@@ -73,7 +73,7 @@ export default function cors(options: Partial<CorsOptions> = {}): (request: Requ
                 }
             }
 
-            responseHeaders.set('Access-Control-Max-Age', cors.AccessControlMaxAge);
+            responseHeaders.set('Access-Control-Max-Age', cors.maxAge);
         }
 
         if (null !== origin) {
@@ -89,8 +89,8 @@ export default function cors(options: Partial<CorsOptions> = {}): (request: Requ
         if (cors.allowCredentials) {
             responseHeaders.set('Access-Control-Allow-Credentials', 'true');
         }
-        if (cors.AccessControlExposeHeaders.length > 0) {
-            responseHeaders.set('Access-Control-Expose-Headers', cors.AccessControlExposeHeaders.join(', '));
+        if (cors.exposeHeaders.length > 0) {
+            responseHeaders.set('Access-Control-Expose-Headers', cors.exposeHeaders.join(', '));
         }
 
         if ('OPTIONS' === method) {
