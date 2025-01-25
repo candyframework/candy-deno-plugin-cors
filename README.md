@@ -17,8 +17,8 @@ Hook.use(async (_req: Request, hook: Hook) => {
 
 ```typescript
 Hook.use(Cors({
-    // allowOrigins: ['*'],
-    allowOrigins: ['https://www.mydomain.com'],
+    // origins: ['*'],
+    origins: ['https://www.mydomain.com'],
     allowMethods: ['GET', 'POST'],
     allowHeaders: [],
     allowCredentials: false,
