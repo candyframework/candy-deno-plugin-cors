@@ -1,10 +1,10 @@
-## Cors plgin for @candy/framework
+## Cors plgin for @luban/framework
 
 ## Simple Usage
 
 ```typescript
-import Hook from '@candy/framework/core/Hook.ts';
-import Cors from '@candy/plugin-cors';
+import Hook from '@luban/framework/core/Hook.ts';
+import Cors from '@luban/plugin-cors';
 
 Hook.use(Cors());
 Hook.use(async (_req: Request, hook: Hook) => {

@@ -41,7 +41,7 @@ export type CorsOptions = {
 };
 
 /**
- * Cors plgin for `@candy/framework`
+ * Cors plgin for `@luban/framework`
  */
 export default function cors(options: Partial<CorsOptions> = {}): (request: Request, hook: any) => Promise<Response> {
     const cors: CorsOptions = Object.assign({
